@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "np-recording-processing"
+version = "0.1.0"
+description = "Neuropixels recording processing: folder layout, mtscomp compression, Kilosort4 sorting via SpikeInterface, postprocessing, curation, sync-ping extraction and event alignment."
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [{ name = "Kevin N. Schneider" }]
+requires-python = ">=3.10,<3.13"
+# Light core: everything importable without SpikeInterface / torch / kilosort.
+dependencies = [
+    "numpy>=1.26",
+    "scipy>=1.13",
+    "polars>=1.33",
+    "pyarrow>=21",
+    "pandas>=2.2",
+    "tomli>=2.0; python_version < '3.11'",
+]
+
+[project.optional-dependencies]
+# compression (mtscomp, IBL)
+compress = ["mtscomp>=1.0.2,<2", "tqdm"]
+# SpikeInterface stack for loading, preprocessing, analyzers, curation, sync from raw files.
+# Minimum is 0.102.3; curation/bombcell/SLAy/IBL export need >=0.104 (API tested on 0.104.0 only, hence the <0.105 pin; 0.102 differs in amplitude_cutoff/peak_sign and metric names).
+ephys = [
+    "spikeinterface[full]>=0.104,<0.105",
+    "probeinterface>=0.3.0",
+    "numcodecs>=0.13",
+    "zarr>=2.18,<3",
+]
+# GPU sorting. Tested with kilosort 4.1.3 + torch 2.9.1 (cu128).
+# Install the torch wheel matching your CUDA driver first (see README).
+sorting = ["kilosort==4.1.3", "torch>=2.9.1"]
+dev = ["pytest>=8", "ruff"]
+all = ["np-recording-processing[compress,ephys]"]
+
+[project.scripts]
+np-setup-folders = "np_ephys.layout:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100

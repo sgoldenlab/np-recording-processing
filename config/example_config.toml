@@ -1,0 +1,45 @@
+# Example configuration for the np_ephys example scripts. All paths are PLACEHOLDERS.
+# Real values can stay out of the committed file: set NP_EPHYS_ROOT to override [paths].root.
+
+[paths]
+root = "/path/to/data_root"          # parent of the animal folders. Override with env NP_EPHYS_ROOT.
+# Where a session / an animal's histology lives below root (placeholders {animal} and {session}):
+# session_template   = "{animal}/{session}"      # e.g. "{session}" for a flat layout
+# histology_template = "{animal}/histology"
+# Folder names (defaults shown; nothing is created until a step writes into it):
+# [paths.names]
+# raw = "raw"; processed = "processed"; alignment = "alignment"; derived = "derived"
+# sync = "sync"; units = "units"; metrics = "metrics"
+# downsampled = "downsampled"; registered = "registered"; stacks = "stacks"; tracks = "tracks"
+
+[experiment]
+# One table per session. Session names look like <ANIMAL>_<R#> (animal = text before the first underscore).
+[experiment.recordings."NP01_R1"]
+concatenate = false                  # true: several SpikeGLX runs (segments) of one session are concatenated
+multiple_shanks = false              # bool, or one bool per probe, e.g. [false, true]
+
+[experiment.recordings."NP01_R2"]
+concatenate = true
+multiple_shanks = [true, true]
+
+[kilosort]                           # overrides of np_ephys.sorting.DEFAULT_KS_OVERRIDES
+batch_size = 15000
+nblocks = 1
+Th_universal = 9.0
+Th_learned = 8.0
+
+[job]                                # SpikeInterface/mtscomp parallelism
+fraction_of_cores = 0.8
+chunk_duration = 5
+
+[sync]
+threshold = 40                       # raw int16 sync-channel threshold; remove the line for diff/find_peaks mode
+end_index = -2                       # experiment ends at the second-to-last ping (-1: last ping)
+rec_min_time_s = 50                  # ignore detected pings earlier than this (acquisition artefacts)
+
+[analyzer]
+min_spikes = 500
+
+[curation]
+query = "amplitude_cutoff < 0.1 & isi_violations_ratio < 0.5 & rp_contamination < 0.5"
+ptv_threshold_ms = 0.4               # peak-to-valley split for putative interneuron vs pyramidal (cortex/hippocampus only)

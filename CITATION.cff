@@ -1,0 +1,54 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it and the upstream tools it wraps (see references)."
+title: "np-recording-processing (np_ephys)"
+version: 0.1.0
+authors:
+  - family-names: Schneider
+    given-names: Kevin N.
+repository-code: "https://github.com/sgoldenlab/np-recording-processing"
+license: BSD-3-Clause
+references:
+  - type: article
+    title: "SpikeInterface, a unified framework for spike sorting"
+    authors:
+      - {family-names: Buccino, given-names: Alessio Paolo}
+      - {family-names: Hurwitz, given-names: Cole Lincoln}
+      - {family-names: Garcia, given-names: Samuel}
+      - {family-names: Magland, given-names: Jeremy}
+      - {family-names: Siegle, given-names: Joshua H}
+      - {family-names: Hurwitz, given-names: Roger}
+      - {family-names: Hennig, given-names: Matthias H}
+    journal: eLife
+    volume: 9
+    issue: e61834
+    year: 2020
+    doi: "10.7554/eLife.61834" # TODO verify (DOI not shown on the GitHub README)
+  - type: article
+    title: "Spike sorting with Kilosort4"
+    authors:
+      - {family-names: Pachitariu, given-names: Marius}
+      - {family-names: Sridhar, given-names: Shashwat}
+      - {family-names: Pennington, given-names: Jacob}
+      - {family-names: Stringer, given-names: Carsen}
+    journal: Nature Methods
+    volume: 21
+    start: 914
+    end: 921
+    year: 2024
+    doi: "10.1038/s41592-024-02232-7" # TODO verify (DOI not shown on the GitHub README)
+  - type: software
+    title: "Bombcell: automated curation and cell classification of spike-sorted electrophysiology data"
+    authors:
+      - {family-names: Fabre, given-names: Julie M.J.}
+      - {family-names: van Beest, given-names: Enny H.}
+      - {family-names: Peters, given-names: Andrew J.}
+      - {family-names: Carandini, given-names: Matteo}
+      - {family-names: Harris, given-names: Kenneth D.}
+    year: 2023
+    doi: "10.5281/zenodo.8172821"
+  - type: software
+    title: "mtscomp: Multichannel time series lossless compression in pure Python based on NumPy and zlib"
+    authors:
+      - {name: "International Brain Laboratory (int-brain-lab)"}
+    url: "https://github.com/int-brain-lab/mtscomp"
+    notes: "Cite the GitHub repository (the repo declares no publication of its own)."
